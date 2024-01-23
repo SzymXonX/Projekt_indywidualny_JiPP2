@@ -2,6 +2,11 @@
 
 ListaNotatek::ListaNotatek(){}
 
+ListaNotatek::~ListaNotatek()
+{
+	lista.clear();
+}
+
 unsigned int ListaNotatek::getLp()
 {
 	return lp;
@@ -16,13 +21,13 @@ void ListaNotatek::DodajNotatke(const Notatka& notatka)
 void ListaNotatek::Wyswietl()
 {
 	for (int i = 0; i < lp; i++) {
-		lista.at(i).PokazNotatke();
+		cout << lista.at(i);
 	}
 }
 
 void ListaNotatek::WyswietlJedna(int i)
 {
-	lista.at(i).PokazNotatke();
+	cout << lista.at(i);
 }
 
 void ListaNotatek::EdytujNotatke(int i, int j, string s)
@@ -109,6 +114,6 @@ void ListaNotatek::odczytaj(ifstream& odczyt)
 		odczyt.read(bufor, sizeof(time_t));
 		czas = *reinterpret_cast<time_t*>(bufor);
 		lista.push_back(Notatka(tytul, tekst, i));
-		lista.at(i).setData(czas);
+		lista.at(i).Data::setData(czas);
 	}
 }

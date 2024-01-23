@@ -7,14 +7,14 @@
 
 using namespace std;
 
-class ListaNotatek : public Notatka
+class ListaNotatek
 {	
 	vector<Notatka> lista;
 	unsigned int lp = 0;
 
 public:
 	ListaNotatek();
-
+	~ListaNotatek();
 	unsigned int getLp();
 	void DodajNotatke(const Notatka& notatka);
 	void Wyswietl();

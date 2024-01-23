@@ -2,20 +2,10 @@
 
 Notatka::Notatka(){}
 
-Notatka::Notatka(string tytul, string tekst, unsigned int lp){
+Notatka::Notatka(string tytul, string tekst, unsigned int lp) : Data(){
 	this->tytul = tytul;
 	this->tekst = tekst;
 	this->lp = lp;
-}
-
-void Notatka::PokazNotatke()
-{
-	time_t time = data.getData();
-	char timeString[size("yyyy-mm-ddThh:mm:ssZ")];
-	strftime(std::data(timeString), size(timeString),
-		"%F  %T", gmtime(&time));
-	cout << timeString << '\n';
-	cout << "Notatka [" << lp+1 << "]: " << "\nT: " << tytul << endl << tekst << endl << endl;
 }
 
 void Notatka::setTytul(string tytul)
@@ -28,10 +18,6 @@ void Notatka::setTekst(string tekst)
 	this->tekst = tekst;
 }
 
-void Notatka::setData(time_t czas)
-{
-	data.setData(czas);
-}
 
 void Notatka::setLp(unsigned int lp)
 {
@@ -47,6 +33,8 @@ string Notatka::getTekst()
 {
 	return tekst;
 }
+
+
 
 ofstream& operator<<(ofstream& zapis, Notatka notatka)
 {
@@ -67,4 +55,15 @@ ofstream& operator<<(ofstream& zapis, Notatka notatka)
 	zapis.write(reinterpret_cast<char*>(&czas), sizeof(time_t));
 
 	return zapis;
+}
+
+ostream& operator<<(ostream& wyjscie, Notatka notatka)
+{
+	time_t time = notatka.getData();
+	char timeString[size("yyyy-mm-ddThh:mm:ssZ")];
+	strftime(std::data(timeString), size(timeString),
+		"%F  %T", gmtime(&time));
+	cout << timeString << '\n';
+	
+	return wyjscie << "Notatka [" << (notatka.lp + 1) << "]: " << "\nT: " << notatka.tytul << endl << notatka.tekst << endl << endl;
 }
